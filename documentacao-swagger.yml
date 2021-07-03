@@ -10,7 +10,6 @@ info:
   license:
     name: "Licença: GPLv3"
     url: "https://www.gnu.org/licenses/gpl-3.0.html"
-
 servers:
 - url: "http://localhost:8080"
   description: "API do servidor local"
@@ -36,6 +35,10 @@ paths:
         schema:
           type: "string"
       - in: "query"
+        name: "tipoValor"
+        schema:
+          type: "string"
+      - in: "query"
         name: "sort"
         schema:
           type: "string"
@@ -49,6 +52,25 @@ paths:
                 type: "array"
                 items:
                   $ref: "#/components/schemas/Carro"
+              example:
+                  - chassi: "9BBNSZPPA288003334"
+                    nome: "New Fiesta"
+                    marca: "Volkswagen"
+                    cor: "branco"
+                    valor: 28100.00
+                    anoFabricacao: 2015
+                  - chassi: "6LB4TAHTXHT2A8502"
+                    nome: "New Fiesta"
+                    marca: "Ford"
+                    cor: "branco"
+                    valor: 28100.00
+                    anoFabricacao: 2017
+                  - chassi: "1HE0J63JR5M8T7989"
+                    nome: "New Fiesta"
+                    marca: "Fiat"
+                    cor: "preto"
+                    valor: 27500.00
+                    anoFabricacao: 2004
     post:
       tags:
       - "cars"
@@ -60,15 +82,20 @@ paths:
                 type: "array"
                 items:
                   $ref: "#/components/schemas/Carro"
+            example:
+                chassi: "9BBNSZPPA288003334"
+                nome: "New Fiesta"
+                marca: "Volkswagen"
+                cor: "branco"
+                valor: 28100.00
+                anoFabricacao: 2015
       responses:
         201:
           description: "Created"
           content:
             application/json:
               schema:
-                  type: "array"
-                  items:
-                    $ref: "#/components/schemas/Carro"
+                  $ref: "#/components/schemas/Carro"
         400:
           description: "Bad Request"
           content:
@@ -93,6 +120,13 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Carro"
+              example:
+                chassi: "9BBNSZPPA288003333"
+                nome: "New Fiesta"
+                marca: "Volkswagen"
+                cor: "branco"
+                valor: 28100.00
+                anoFabricacao: 2015
         404:
           description: "Not Found"
           content:
@@ -132,3 +166,10 @@ components:
           format: "decimal"
         anoFabricacao:
           type: "integer"
+      example:
+        chassi: "9BBNSZPPA288003333"
+        nome: "New Fiesta"
+        marca: "Volkswagen"
+        cor: "branco"
+        valor: 28100.00
+        anoFabricacao: 2015

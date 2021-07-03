@@ -122,6 +122,8 @@ public class CarroForm {
 				numCampos++;
 			}
 			
+			numCampos = numCampos == -1 ? 0 : numCampos;
+			
 			return builder.and(predicados.toArray(new Predicate[numCampos]));
 		};
 	}

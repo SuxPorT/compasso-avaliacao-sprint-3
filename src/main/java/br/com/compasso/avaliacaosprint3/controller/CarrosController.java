@@ -15,20 +15,17 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import br.com.compasso.avaliacaosprint3.controller.form.AtualizacaoCarroForm;
 import br.com.compasso.avaliacaosprint3.controller.form.CarroForm;
 import br.com.compasso.avaliacaosprint3.dto.CarroDto;
 import br.com.compasso.avaliacaosprint3.model.Carro;
 import br.com.compasso.avaliacaosprint3.repository.CarroRepository;
 
-//@CrossOrigin
 @RestController
 @RequestMapping("/api/cars")
 public class CarrosController {
@@ -36,7 +33,7 @@ public class CarrosController {
 	@Autowired
 	private CarroRepository carroRepository;
 	
-	public List<CarroDto> listarComParametros(CarroForm form, Pageable pageable) {
+	private List<CarroDto> listarComParametros(CarroForm form, Pageable pageable) {
 		List<Carro> carros = carroRepository.findAll(form.toSpec(), pageable).getContent();
 		
 		return CarroDto.converter(carros);
@@ -44,13 +41,29 @@ public class CarrosController {
 	
 	@GetMapping
 	public List<CarroDto> listar(@RequestParam Map<String, String> parametros, CarroForm form, Pageable pageable) {
-		if (parametros.isEmpty()) {
-			List<Carro> carros = (List<Carro>) carroRepository.findAll();
-			
-			return CarroDto.converter(carros);
+		List<Carro> carros = null;
+		
+		if (!parametros.isEmpty()) {
+
+			if (parametros.containsKey("tipoValor")) {
+				// Filta pelo carro mais barato/caro, porém não atua com os demais filtros
+				String tipoValor = parametros.get("tipoValor");
+					
+				if (tipoValor.equals("min")) {
+					carros = (List<Carro>) carroRepository.findByMinValor();
+				} else {
+					carros = (List<Carro>) carroRepository.findByMaxValor();
+				}
+				
+				return CarroDto.converter(carros);
+			}
+	
+			return this.listarComParametros(form, pageable);
 		}
 		
-		return this.listarComParametros(form, pageable);
+		carros = (List<Carro>) carroRepository.findAll();
+		
+		return CarroDto.converter(carros);
 	}
 	
 	@PostMapping
@@ -78,20 +91,6 @@ public class CarrosController {
 		
 		if (carro.isPresent()) {
 			return ResponseEntity.ok(new CarroDto(carro.get()));
-		}
-		
-		return ResponseEntity.notFound().build();
-	}
-	
-	@PutMapping("/{chassi}")
-	@Transactional
-	public ResponseEntity<CarroDto> atualizar(@PathVariable String chassi, @RequestBody @Valid AtualizacaoCarroForm form) {
-		Optional<Carro> optional = carroRepository.findByChassi(chassi);
-		
-		if (optional.isPresent()) {
-			Carro carro = form.atualizar(optional, carroRepository);
-			
-			return ResponseEntity.ok(new CarroDto(carro));
 		}
 		
 		return ResponseEntity.notFound().build();

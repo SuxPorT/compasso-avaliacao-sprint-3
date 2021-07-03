@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+// Classe utilizada para habilitar o acesso do Swagger Editor
 @Component
 public class CorsConfiguration extends OncePerRequestFilter {
 

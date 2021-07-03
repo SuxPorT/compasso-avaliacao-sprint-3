@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RedirectController implements ErrorController {
 
 	@RequestMapping("/")
-	public String handleRoot() {
+	public String redirectRoot() {
 		return "redirect:/api/cars";
 	}
 	
 	@RequestMapping("/api")
-	public String handleApi() {
+	public String redirectApi() {
 		return "redirect:/api/cars";
 	}
 	

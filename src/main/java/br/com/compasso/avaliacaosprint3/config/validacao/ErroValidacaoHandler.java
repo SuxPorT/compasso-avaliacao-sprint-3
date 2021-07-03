@@ -25,6 +25,7 @@ public class ErroValidacaoHandler {
 		List<ErroFormularioDto> dto = new ArrayList<>();
 		List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
 		
+		// Cria uma mensagem para cada campo com erro
 		fieldErrors.forEach(e -> {
 			String mensagem = messageSource.getMessage(e, LocaleContextHolder.getLocale());
 			ErroFormularioDto erro = new ErroFormularioDto(e.getField(), mensagem);
