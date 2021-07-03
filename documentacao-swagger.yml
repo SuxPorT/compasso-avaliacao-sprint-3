@@ -1,0 +1,134 @@
+openapi: "3.0.1"
+info:
+  title: "API de carros"
+  description: "API para consultar uma lista de carros."
+  version: "0.0.1"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    name: "Alexys Santiago"
+    email: "alexys.fernande_BOLS@compasso.com.br"
+  license:
+    name: "Licença: GPLv3"
+    url: "https://www.gnu.org/licenses/gpl-3.0.html"
+
+servers:
+- url: "http://localhost:8080"
+  description: "API do servidor local"
+tags:
+- name: "cars"
+  description: "Sistema de listagem e criação de carros"
+paths:
+  /api/cars:
+    get:
+      tags:
+      - "cars"
+      parameters:
+      - in: "query"
+        name: "nome"
+        schema:
+          type: "string"
+      - in: "query"
+        name: "marca"
+        schema:
+          type: "string"
+      - in: "query"
+        name: "cor"
+        schema:
+          type: "string"
+      - in: "query"
+        name: "sort"
+        schema:
+          type: "string"
+      summary: "Retorna uma lista de carros"
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Carro"
+    post:
+      tags:
+      - "cars"
+      summary: "Cria um novo carro"
+      requestBody:
+        content:
+          application/json:
+            schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Carro"
+      responses:
+        201:
+          description: "Created"
+          content:
+            application/json:
+              schema:
+                  type: "array"
+                  items:
+                    $ref: "#/components/schemas/Carro"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              example: "null"
+  /api/cars/{chassi}:
+    parameters:
+    - name: "chassi"
+      in: "path"
+      schema:
+        type: "string"
+      required: true
+      description: "Identificador único de um carro"
+    get:
+      tags:
+      - "cars"
+      summary: "Recupera um carro pelo chassi"
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Carro"
+        404:
+          description: "Not Found"
+          content:
+            application/json:
+              example: "null"
+    delete:
+      tags:
+      - "cars"
+      summary: "Deleta um carro pelo chassi"
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Carro"
+        404:
+          description: "Not Found"
+          content:
+            application/json:
+              example: "null"
+components:
+  schemas:
+    Carro:
+      type: "object"
+      properties:
+        chassi:
+          type: "string"
+        nome:
+          type: "string"
+        marca:
+          type: "string"
+        cor:
+          type: "string"
+        valor:
+          type: "number"
+          format: "decimal"
+        anoFabricacao:
+          type: "integer"

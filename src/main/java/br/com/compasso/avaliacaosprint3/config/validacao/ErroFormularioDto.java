@@ -2,12 +2,11 @@ package br.com.compasso.avaliacaosprint3.config.validacao;
 
 public class ErroFormularioDto {
 
-	private String campo;
-	private String erro;
+	private String campo, erro;
 	
 	public ErroFormularioDto(String campo, String erro) {
 		this.campo = campo;
-		this.erro = erro;
+		this.erro  = erro;
 	}
 
 	public String getCampo() {

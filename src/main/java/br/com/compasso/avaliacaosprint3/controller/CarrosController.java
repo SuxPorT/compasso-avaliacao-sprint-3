@@ -9,44 +9,48 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.compasso.avaliacaosprint3.controller.form.AtualizacaoCarroForm;
 import br.com.compasso.avaliacaosprint3.controller.form.CarroForm;
 import br.com.compasso.avaliacaosprint3.dto.CarroDto;
 import br.com.compasso.avaliacaosprint3.model.Carro;
 import br.com.compasso.avaliacaosprint3.repository.CarroRepository;
 
+//@CrossOrigin
 @RestController
 @RequestMapping("/api/cars")
 public class CarrosController {
 	
 	@Autowired
 	private CarroRepository carroRepository;
-
+	
+	public List<CarroDto> listarComParametros(CarroForm form, Pageable pageable) {
+		List<Carro> carros = carroRepository.findAll(form.toSpec(), pageable).getContent();
+		
+		return CarroDto.converter(carros);
+	}
+	
 	@GetMapping
-	public List<CarroDto> listar(@RequestParam Map<String, String> parametros) {
-		System.out.println("Nenhum parâmetro = " + parametros.isEmpty());
-		
-		List<Carro> carros = null;
-		
+	public List<CarroDto> listar(@RequestParam Map<String, String> parametros, CarroForm form, Pageable pageable) {
 		if (parametros.isEmpty()) {
-			carros = carroRepository.findAll();
+			List<Carro> carros = (List<Carro>) carroRepository.findAll();
 			
 			return CarroDto.converter(carros);
 		}
 		
-		carros = CarroDto.analisarParametros(carroRepository, parametros);
-		
-		return CarroDto.converter(carros);
+		return this.listarComParametros(form, pageable);
 	}
 	
 	@PostMapping
@@ -68,7 +72,9 @@ public class CarrosController {
 	
 	@GetMapping("/{chassi}")
 	public ResponseEntity<CarroDto> detalhar(@PathVariable String chassi) {
-		Optional<Carro> carro = carroRepository.findByChassi(chassi.toUpperCase());
+		chassi = chassi.toUpperCase();
+		
+		Optional<Carro> carro = carroRepository.findByChassi(chassi);
 		
 		if (carro.isPresent()) {
 			return ResponseEntity.ok(new CarroDto(carro.get()));
@@ -77,13 +83,29 @@ public class CarrosController {
 		return ResponseEntity.notFound().build();
 	}
 	
+	@PutMapping("/{chassi}")
+	@Transactional
+	public ResponseEntity<CarroDto> atualizar(@PathVariable String chassi, @RequestBody @Valid AtualizacaoCarroForm form) {
+		Optional<Carro> optional = carroRepository.findByChassi(chassi);
+		
+		if (optional.isPresent()) {
+			Carro carro = form.atualizar(optional, carroRepository);
+			
+			return ResponseEntity.ok(new CarroDto(carro));
+		}
+		
+		return ResponseEntity.notFound().build();
+	}
+	
 	@DeleteMapping("/{chassi}")
 	@Transactional
 	public ResponseEntity<?> remover(@PathVariable String chassi) {
-		Optional<Carro> optional = carroRepository.findByChassi(chassi.toUpperCase());
+		chassi = chassi.toUpperCase();
+		
+		Optional<Carro> optional = carroRepository.findByChassi(chassi);
 		
 		if (optional.isPresent()) {
-			carroRepository.deleteByChassi(chassi.toUpperCase());
+			carroRepository.deleteById(chassi);
 			
 			return ResponseEntity.ok().build();
 		}

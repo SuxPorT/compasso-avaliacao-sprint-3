@@ -11,9 +11,7 @@ public class Carro {
 	@Id
 	private String chassi;
 	
-	private String nome;
-	private String marca;
-	private String cor;
+	private String nome, marca, cor;
 	private BigDecimal valor;
 	private Long anoFabricacao;
 	
@@ -21,11 +19,11 @@ public class Carro {
 	}
 	
 	public Carro(String chassi, String nome, String marca, String cor, BigDecimal valor, Long anoFabricacao) {
-		this.chassi = chassi.toUpperCase();
-		this.nome = nome;
-		this.marca = marca;
-		this.cor = cor;
-		this.valor = valor;
+		this.chassi        = chassi.toUpperCase();
+		this.nome          = nome;
+		this.marca         = marca;
+		this.cor           = cor;
+		this.valor         = valor;
 		this.anoFabricacao = anoFabricacao;
 	}
 	
