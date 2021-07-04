@@ -21,24 +21,24 @@ Exemplo<br/>
 **Retorno JSON**:
 <pre><code>
 {
-	"chassi": "9BBNSZPPA288003333",
-	"nome": "New Fiesta",
-	"marca": "ford",
-	"cor": "branco",
-	"valor": 28.100,
-	"anoFabricacao": 2015
+  "chassi": "9BBNSZPPA288003333",
+  "nome": "New Fiesta",
+  "marca": "ford",
+  "cor": "branco",
+  "valor": 28.100,
+  "anoFabricacao": 2015
 }
 </code></pre>
 
 Como parte do trabalho e como uma forma de documentar a API, crie a documentação dela pelo Swagger.
 
 ## Ferramentas e dependências utilizadas
-![Java Badge](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)
-![Spring Badge](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
-![Eclipse Badge](https://img.shields.io/badge/Eclipse-2C2255?style=for-the-badge&logo=eclipse&logoColor=white)
-![Postman Badge](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white)
-![Git Badge](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)
-<img src="https://static1.smartbear.co/swagger/media/assets/images/swagger_logo.svg" width="90px;"></img>
+[![Java Badge](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white)](https://www.java.com/en/)
+[![Spring Badge](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)](https://start.spring.io/)
+[![Eclipse Badge](https://img.shields.io/badge/Eclipse-2C2255?style=for-the-badge&logo=eclipse&logoColor=white)](https://www.eclipse.org/downloads/packages/release/kepler/sr2/eclipse-ide-java-ee-developers)
+[![Postman Badge](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white)](https://www.postman.com/)
+[![Git Badge](https://img.shields.io/badge/git-%23F05033.svg?style=for-the-badge&logo=git&logoColor=white)](https://git-scm.com/)
+[<img src="https://static1.smartbear.co/swagger/media/assets/images/swagger_logo.svg" width="90px;"></img>](https://swagger.io/)
 
 - **[Spring Initializr](https://start.spring.io/):** gera um projeto de Spring Boot com dependências iniciais de forma rápida. Todas as dependências se encontram no arquivo **[pom.xml](/pom.xml)**.
   * **Projeto Maven com Spring Boot versão 2.5.2 e Java versão 8.**
@@ -47,8 +47,8 @@ Como parte do trabalho e como uma forma de documentar a API, crie a documentaç�
   * **Validation**: Bean Validation com validador do Hibernate.
   * **H2 Database**: fornece um banco de dados em memória que suporta acesso JDBC API e R2DBC, com um aplicativo de console baseado em navegador.
   * **Spring Boot DevTools**: fornece reinicializações rápidas de aplicativos, LiveReload e configurações para uma experiência de desenvolvimento aprimorada.
-  * As configurações do DataSource, JPA e H2 se encontram no arquivo **[application.properties](/src/main/resources/application.properties)**
-  * Os registros do banco de dados utilizados como teste se encontram no arquivo **[data.sql](/src/main/resources/data.sql)**
+  * As configurações do DataSource, JPA e H2 se encontram no arquivo **[application.properties](/src/main/resources/application.properties)**.
+  * Os registros do banco de dados utilizados como teste se encontram no arquivo **[data.sql](/src/main/resources/data.sql)**.
 - **[Eclipse IDE for Java EE Developers](https://www.eclipse.org/downloads/packages/release/kepler/sr2/eclipse-ide-java-ee-developers)**: ferramentas para desenvolvedores Java criando aplicativos Java EE e Web, incluindo Java IDE, ferramentas para Java EE, JPA, JSF, Mylyn, EGit e outros.
 - **[Postman](https://www.postman.com/)**: plataforma de colaboração para desenvolvimento de API, utilizado para requisições do tipo GET/POST/PUT/DELETE.
 - **[Git](https://git-scm.com/)**: sistema de controle de versão distribuído gratuito e de código aberto.
@@ -57,4 +57,4 @@ Como parte do trabalho e como uma forma de documentar a API, crie a documentaç�
 ## Links externos utilizados
 * ***[Rocketseat - Como fazer um bom README](https://blog.rocketseat.com.br/como-fazer-um-bom-readme/)***
 * ***[Ileriayo Adebiyi - Markdown Badges](https://github.com/Ileriayo/markdown-badges)***
-* <strike>***[Salvador de vidas - Stack Overflow](https://stackoverflow.com/)***</strike>
+* <strike>***[Salva-vidas - Stack Overflow](https://stackoverflow.com/)***</strike>
